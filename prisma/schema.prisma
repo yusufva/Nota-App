@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product_Master{
+  id String @id @db.Uuid
+  name String
+  stock Product_Stock? 
+  buying_price Int
+  selling_price Int
+  created_date DateTime @default(now())
+  updated_date DateTime @default(now())
+}
+
+model Product_Stock{
+  id String @id @db.Uuid
+  product Product_Master @relation(fields: [id], references: [id])
+  quantity Int
+  created_date DateTime @default(now())
+  updated_date DateTime @default(now())
+}
+
+model Tx_Buy{
+  id String @id @db.Uuid
+  date DateTime @unique
+  items Bought_Items[]
+  final_price Int
+  created_date DateTime @default(now())
+}
+
+model Bought_Items{
+  id Int @id @default(autoincrement())
+  tx_id String @db.Uuid
+  tx_buy Tx_Buy @relation(fields: [tx_id], references: [id])
+  name String
+  buying_price Int
+  quantity Int
+  total_price Int
+  created_date DateTime @default(now())
+}
+
+model Tx_Sell{
+  id String @id @db.Uuid
+  date DateTime @unique
+  items Sold_Items[]
+  final_price Int
+  created_date DateTime @default(now())
+}
+
+model Sold_Items{
+  id Int @id @default(autoincrement())
+  tx_id String @db.Uuid
+  tx_sell Tx_Sell @relation(fields: [tx_id], references: [id])
+  name String
+  selling_price Int
+  quantity Int
+  total_price Int
+  created_date DateTime @default(now())
+}
