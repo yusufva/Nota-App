@@ -4,10 +4,7 @@ import { IProductMaster } from '@src/models/Product_Master';
 export type ProductMasterDto = IProductMaster;
 
 export type ProductStockDto = {
-    id: string;
     quantity: number;
-    created_date: Date;
-    updated_date: Date;
 }; 
 
 export type ProductMasterResponseDto = {
@@ -22,4 +19,11 @@ export type NewProductMasterResponseDto = {
     message: string;
     statusCode: number;
     data: ProductMasterDto|null;
+}
+
+export type NewProductMasterRequestDto = {
+    name: string;
+    buying_price: number;
+    selling_price: number;
+    stock: ProductStockDto|null;
 }
