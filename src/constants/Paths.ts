@@ -16,6 +16,7 @@ export default {
 		Base: '/product-master',
 		Get: '/',
 		Add: '/',
+		GetById: '/:id',
 		Update: '/:id',
 		Delete: '/:id',
 	},
