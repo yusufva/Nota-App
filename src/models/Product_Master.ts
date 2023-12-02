@@ -16,7 +16,7 @@ export interface IProductMaster extends IGeneralModels {
 }
 
 export interface IProductStock{
-    id: string;
+    id: string|undefined;
     quantity: number;
     created_date: Date;
     updated_date: Date;
