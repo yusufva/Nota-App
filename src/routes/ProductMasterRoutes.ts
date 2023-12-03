@@ -13,13 +13,13 @@ const router = Router(),
 
 router.get(Paths.ProductMaster.Get, async (_: IReq, res: IRes) => {
 	const products = await ProductMasterService.GetAll();
-	return res.status(HttpStatusCodes.OK).json({ products });
+	return res.status(HttpStatusCodes.OK).json(products);
 });
 
 router.get(Paths.ProductMaster.GetById, async (req: IReq, res: IRes) => {
 	const { id } = req.params;
 	const product = await ProductMasterService.GetById(id);
-	return res.status(HttpStatusCodes.OK).json({ product });
+	return res.status(HttpStatusCodes.OK).json(product);
 });
 
 router.post(Paths.ProductMaster.Add, validate('name',['buying_price','number'],['selling_price','number']), async (req: IReq<NewProductMasterRequestDto>, res: IRes) => {
@@ -31,7 +31,7 @@ router.post(Paths.ProductMaster.Add, validate('name',['buying_price','number'],[
 		stock: product.stock,
 	};
 	const result = await ProductMasterService.CreateNewProduct(newProduct);
-	return res.status(HttpStatusCodes.CREATED).json({ result });
+	return res.status(HttpStatusCodes.CREATED).json(result);
 });
 
 router.put(Paths.ProductMaster.Update, validate('name',['buying_price','number'],['selling_price','number'],['stock','number'],['id','string','params']), async (req: IReq<NewProductMasterRequestDto>, res: IRes) => {
@@ -44,13 +44,13 @@ router.put(Paths.ProductMaster.Update, validate('name',['buying_price','number']
 		stock: product.stock,
 	};
 	const result = await ProductMasterService.UpdateProductById(newProduct, id);
-	return res.status(HttpStatusCodes.OK).json({ result });
+	return res.status(HttpStatusCodes.OK).json(result);
 });
 
 router.delete(Paths.ProductMaster.Delete, validate(['id', 'string', 'params']), async (req: IReq, res: IRes) => {
 	const { id } = req.params;
 	const result = await ProductMasterService.DeleteById(id);
-	return res.status(HttpStatusCodes.OK).json({ result });
+	return res.status(HttpStatusCodes.OK).json(result);
 });
 
 export default router;
