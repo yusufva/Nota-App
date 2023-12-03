@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import StockService from '@src/services/StockService';
 import Paths from '@src/constants/Paths';
