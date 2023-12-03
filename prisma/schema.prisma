@@ -22,7 +22,7 @@ model Product_Master{
 
 model Product_Stock{
   id String @id @db.Uuid
-  product Product_Master @relation(fields: [id], references: [id])
+  product Product_Master @relation(fields: [id], references: [id], onDelete: Cascade)
   quantity Int
   created_date DateTime @default(now())
   updated_date DateTime @default(now())
@@ -39,7 +39,7 @@ model Tx_Buy{
 model Bought_Items{
   id Int @id @default(autoincrement())
   tx_id String @db.Uuid
-  tx_buy Tx_Buy @relation(fields: [tx_id], references: [id])
+  tx_buy Tx_Buy @relation(fields: [tx_id], references: [id], onDelete: NoAction)
   name String
   buying_price Int
   quantity Int
@@ -58,7 +58,7 @@ model Tx_Sell{
 model Sold_Items{
   id Int @id @default(autoincrement())
   tx_id String @db.Uuid
-  tx_sell Tx_Sell @relation(fields: [tx_id], references: [id])
+  tx_sell Tx_Sell @relation(fields: [tx_id], references: [id], onDelete: NoAction)
   name String
   selling_price Int
   quantity Int
