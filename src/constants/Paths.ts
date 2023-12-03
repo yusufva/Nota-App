@@ -20,4 +20,10 @@ export default {
 		Update: '/:id',
 		Delete: '/:id',
 	},
+	Stock:{
+		Base: '/stock',
+		Get: '/',
+		GetById: '/:id',
+		Update: '/:id',
+	},
 } as const;
