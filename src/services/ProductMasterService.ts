@@ -4,10 +4,6 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { NewProductMasterRequestDto, NewProductMasterResponseDto, ProductMasterResponseDto } from '@src/Dto/ProductMasterDto';
 import { IProductMaster } from '@src/models/Product_Master';
 
-// **** Variables **** //
-
-export const USER_NOT_FOUND_ERR = 'User not found';
-
 async function GetAll(): Promise<ProductMasterResponseDto> {
 	const products = await ProductMasterRepo.GetAll();
 	const response : ProductMasterResponseDto = {
