@@ -37,6 +37,7 @@ async function Create(tx:NewTxBuyRequestDto):Promise<NewTxBuyResponseDto>{
 			return {
 				id: undefined,
 				tx_id: '',
+				product_id: item.product_id,
 				name: item.name,
 				buying_price: item.buying_price,
 				quantity: item.quantity,

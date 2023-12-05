@@ -14,6 +14,7 @@ export interface ITxBuy extends Omit<IGeneralModels, 'updated_date'> {
 export interface IBoughtItems{
     id: number | undefined;
     tx_id: string;
+	product_id: string;
     name: string;
     buying_price: number;
     quantity: number;

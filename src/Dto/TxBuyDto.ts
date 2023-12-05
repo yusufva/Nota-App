@@ -4,6 +4,7 @@ export type TxBuyDto = ITxBuy;
 
 export type ItemsDto = {
     name: string;
+    product_id: string,
     buying_price: number,
     quantity: number,
     total_price: number,
