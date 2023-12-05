@@ -26,4 +26,10 @@ export default {
 		GetById: '/:id',
 		Update: '/:id',
 	},
+	TxBuy:{
+		Base: '/tx-buy',
+		Get: '/',
+		Create: '/',
+		GetById: '/:id',
+	},
 } as const;
