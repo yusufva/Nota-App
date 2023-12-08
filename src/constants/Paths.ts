@@ -32,4 +32,10 @@ export default {
 		Create: '/',
 		GetById: '/:id',
 	},
+	TxSell:{
+		Base: '/tx-sell',
+		Get: '/',
+		Create: '/',
+		GetById: '/:id',
+	},
 } as const;
