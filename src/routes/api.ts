@@ -5,6 +5,7 @@ import Product from './ProductMasterRoutes';
 import Stock from './StockRoutes';
 import TxBuy from './TxBuyRoutes';
 import TxSell from './TxSellRoutes';
+import TxBuyReport from './TxBuyReportRoutes';
 
 
 // **** Variables **** //
@@ -23,6 +24,8 @@ apiRouter.use(Paths.TxBuy.Base, TxBuy);
 // Add Tx Sell Router
 apiRouter.use(Paths.TxSell.Base, TxSell);
 
+// Add Tx Buy Report Router
+apiRouter.use(Paths.report.Base, TxBuyReport);
 
 // **** Export default **** //
 
