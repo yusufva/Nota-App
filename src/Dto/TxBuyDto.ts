@@ -29,3 +29,26 @@ export type NewTxBuyResponseDto = {
     statusCode: number;
     data: TxBuyDto | null;
 }
+
+export type TxBuyRangeReportRequestDto = {
+    startDate: Date,
+    endDate: Date,
+}
+
+export type TxBuyRangeReportResponseDto = {
+    result: string;
+    message: string;
+    statusCode: number;
+    data: TxBuyDto[] | null;
+}
+
+export type TxBuyMonthReportRequestDto = {
+    date : Date,
+}
+
+export type TxBuyMonthReportResponseDto = {
+    result: string;
+    message: string;
+    statusCode: number;
+    data: TxBuyDto[] | null;
+}
