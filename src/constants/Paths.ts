@@ -38,4 +38,17 @@ export default {
 		Create: '/',
 		GetById: '/:id',
 	},
+	report:{
+		Base: '/report',
+		TxBuy: {
+			Base: '/tx-buy',
+			GetByDate: '/date',
+			GetByMonth: '/month',
+		},
+		TxSell: {
+			Base: '/tx-sell',
+			GetByDate: '/date',
+			GetByMonth: '/month',
+		},
+	},
 } as const;
