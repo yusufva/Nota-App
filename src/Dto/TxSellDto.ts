@@ -30,3 +30,25 @@ export type NewTxSellResponseDto = {
     data: TxSellDto | null;
 }
 
+export type TxSellRangeReportRequestDto = {
+    startDate: Date,
+    endDate: Date,
+}
+
+export type TxSellRangeReportResponseDto = {
+    result: string;
+    message: string;
+    statusCode: number;
+    data: TxSellDto[] | null;
+}
+
+export type TxSellMonthReportRequestDto = {
+    date : Date,
+}
+
+export type TxSellMonthReportResponseDto = {
+    result: string;
+    message: string;
+    statusCode: number;
+    data: TxSellDto[] | null;
+}
