@@ -11,14 +11,15 @@ export interface ITxSell extends Omit<IGeneralModels, 'updated_date'>{
     final_price: number;
 }
 
-export interface ISoldItems extends Omit<IGeneralModels, 'updated_date'>{
+export interface ISoldItems{
     id: number|undefined;
-    tx_id: string;
+    tx_id: string|undefined;
     product_id: string;
     name: string;
     selling_price: number;
     quantity: number;
-    total_price: number
+    total_price: number;
+	created_date: Date;
 }
 
 function newTxSell(
