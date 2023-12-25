@@ -1,7 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ITxSell } from '@src/models/TxSell';
 import { PrismaClient } from '@prisma/client';
+import { Guid } from 'guid-typescript';
 
 const prisma = new PrismaClient();
+type TransactionService = {
+	tx_Sell: any
+	product_Stock: any
+}
 
 async function GetAll(): Promise<ITxSell[]> {
 	const tx: ITxSell[] = await prisma.tx_Sell.findMany({ 
@@ -24,19 +33,18 @@ async function GetById(id: string): Promise<ITxSell | null> {
 
 async function Create(tx: ITxSell): Promise<ITxSell | null> {
 	const create = {
-		id: '',
+		id: `${Guid.create().toString()}`,
 		date: tx.date,
+		final_price: tx.final_price,
+		created_date: new Date(),
 		items: {
 			createMany: {
 				data: tx.items,
 			},
 		},
-		final_price: tx.final_price,
-		created_date: new Date(),
-		updated_date: new Date(),
 	};
 	const res : ITxSell = await prisma.$transaction(
-		async (txs): Promise<ITxSell> => {
+		async (txs : TransactionService): Promise<ITxSell> => {
 			const sell: ITxSell = await txs.tx_Sell.create({
 				data: create,
 				include: {
@@ -44,20 +52,20 @@ async function Create(tx: ITxSell): Promise<ITxSell | null> {
 				},
 			});
 
-			tx.items.map(async (item) => {
-				const prod = await txs.product_Stock.findUnique({
+			await Promise.all(tx.items.map(async (item) => {
+				let prod = await txs.product_Stock.findUnique({
 					where: { id: item.product_id },
 				});
 				if (!prod) {
 					return;
 				}
-				await txs.product_Stock.update({
+				prod = await txs.product_Stock.update({
 					where: { id: prod.id },
 					data: {
-						quantity: prod.quantity + item.quantity,
+						quantity: prod.quantity - item.quantity,
 					},
 				});
-			});
+			}));
 			return sell;
 		},
 	);

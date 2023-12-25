@@ -1,8 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ITxBuy } from '@src/models/TxBuy';
 import { PrismaClient } from '@prisma/client';
-// import { Guid } from 'guid-typescript';
+import { Guid } from 'guid-typescript';
 
 const prisma = new PrismaClient();
+type TransactionService = {
+	tx_Buy: any
+	product_Stock: any
+}
 
 async function GetAll() : Promise<ITxBuy[]>{
 	const tx : ITxBuy[] = await prisma.tx_Buy.findMany({include:{items:true}});
@@ -20,11 +28,10 @@ async function GetById(id:string) : Promise<ITxBuy | null>{
 
 async function Create(tx:ITxBuy) : Promise<ITxBuy | null>{
 	const create = {
-		id: '',
+		id: `${Guid.create().toString()}`,
 		date: tx.date,
 		final_price: tx.final_price,
 		created_date: new Date(),
-		updated_date: new Date(),
 		items: {
 			createMany: {
 				data: tx.items,
@@ -32,7 +39,7 @@ async function Create(tx:ITxBuy) : Promise<ITxBuy | null>{
 		},
 	};
 	const res:ITxBuy = await prisma.$transaction(
-		async (txs): Promise<ITxBuy> => {
+		async (txs : TransactionService): Promise<ITxBuy> => {
 			const buy : ITxBuy = await txs.tx_Buy.create({
 				data: create,
 				include:{
@@ -40,7 +47,7 @@ async function Create(tx:ITxBuy) : Promise<ITxBuy | null>{
 				},
 			});
 
-			tx.items.map(async (item)=>{
+			await Promise.all(tx.items.map(async (item)=>{
 				const prod = await txs.product_Stock.findUnique({
 					where:{id:item.product_id},
 				});
@@ -53,7 +60,7 @@ async function Create(tx:ITxBuy) : Promise<ITxBuy | null>{
 						quantity: prod.quantity + item.quantity,
 					},
 				});
-			});
+			}));
 
 			return buy;
 		},
