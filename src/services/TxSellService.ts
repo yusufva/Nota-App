@@ -1,6 +1,6 @@
 import TxSellRepo from '@src/repos/TxSellRepo';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
-import { NewTxSellRequestDto, 
+import { ItemsDto, NewTxSellRequestDto, 
 	NewTxSellResponseDto, 
 	TxSellResponseDto } from '@src/Dto/TxSellDto';
 import { ISoldItems, ITxSell } from '@src/models/TxSell';
@@ -28,15 +28,11 @@ async function GetById(id:string):Promise<TxSellResponseDto>{
 }
 
 async function Create(tx:NewTxSellRequestDto):Promise<NewTxSellResponseDto>{
-	const newTxSell:ITxSell = {
-		id: '',
-		date: tx.date,
-		final_price: tx.final_price,
-		created_date: new Date(),
-		items: tx.items.map((item):ISoldItems=>{
+	const newItem : ISoldItems[] = tx.items.map(
+		(item : ItemsDto) : ISoldItems=>{
 			return {
 				id: undefined,
-				tx_id: '',
+				tx_id: undefined,
 				product_id: item.product_id,
 				name: item.name,
 				selling_price: item.selling_price,
@@ -44,7 +40,13 @@ async function Create(tx:NewTxSellRequestDto):Promise<NewTxSellResponseDto>{
 				total_price: item.total_price,
 				created_date: new Date(),
 			};
-		}),
+		});
+	const newTxSell:ITxSell = {
+		id: undefined,
+		date: tx.date,
+		final_price: tx.final_price,
+		created_date: new Date(),
+		items: newItem,
 	};
 	const create = await TxSellRepo.Create(newTxSell);
 	const response:NewTxSellResponseDto = {
