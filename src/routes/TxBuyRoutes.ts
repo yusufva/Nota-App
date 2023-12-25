@@ -4,10 +4,10 @@ import Paths from '@src/constants/Paths';
 import { Router } from 'express';
 import { IReq, IRes } from './types/express/misc';
 import { NewTxBuyRequestDto } from '@src/Dto/TxBuyDto';
-import jetValidator from 'jet-validator';
+// import jetValidator from 'jet-validator';
 
-const router = Router(),
-	validate = jetValidator();
+const router = Router()/* ,
+	validate = jetValidator() */;
 
 router.get(Paths.Stock.Get, async (_: IReq, res: IRes) => {
 	const stock = await TxBuyService.GetAll();
@@ -21,7 +21,7 @@ router.get(Paths.Stock.GetById, async (req: IReq, res: IRes) => {
 });
 
 router.post(Paths.TxBuy.Create, 
-	validate(['date', 'date'],['final_price','number'], ['items','array']), 
+	/* validate(['date'], ['final_price','number'], ['items','array']), */ 
 	async (req: IReq<NewTxBuyRequestDto>, res: IRes) => {
 		const tx = req.body;
 		const newTxBuy = await TxBuyService.Create(tx);
