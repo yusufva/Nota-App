@@ -24,6 +24,7 @@ model Product_Stock{
   id String @id @db.Uuid
   product Product_Master @relation(fields: [id], references: [id], onDelete: Cascade)
   quantity Int @default(0)
+  satuan String @default("")
   created_date DateTime @default(now())
   updated_date DateTime @default(now())
 }
