@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable max-len */
 import { IProductMaster } from "@src/models/Product_Master";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { Guid } from "guid-typescript";
 
 const prisma = new PrismaClient();
@@ -37,20 +37,30 @@ async function Create(product: IProductMaster): Promise<IProductMaster | null> {
                   create: {
                       id: product.id,
                       quantity: product.stock.quantity,
+                      satuan: product.stock.satuan,
                   },
               }
             : {
                   create: {
                       id: product.id,
                       quantity: 0,
+                      satuan: "",
                   },
               },
     };
-    const create: IProductMaster = await prisma.product_Master.create({
-        data: prismaProductData,
-        include: { stock: true },
-    });
-    return create;
+    try {
+        const create: IProductMaster = await prisma.product_Master.create({
+            data: prismaProductData,
+            include: { stock: true },
+        });
+        return create;
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code === "P2002") {
+                return null;
+            }
+        }
+    }
 }
 
 async function UpdateById(product: IProductMaster): Promise<IProductMaster> {
