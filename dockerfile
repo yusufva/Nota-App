@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npx prisma generate
 RUN npx dotenv -e ./env/production.env -- npx prisma migrate deploy
 RUN npm run build
 
