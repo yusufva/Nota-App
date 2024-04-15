@@ -1,5 +1,6 @@
 FROM node:20.10.0-alpine AS build
 WORKDIR /app
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 COPY package*.json ./
 RUN npm install
 COPY . .
@@ -10,6 +11,7 @@ RUN npm run build
 
 FROM node:20.10.0-alpine AS server
 WORKDIR /app
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 COPY package* ./
 COPY ./prisma ./prisma
 COPY ./env/production.env ./env/production.env
