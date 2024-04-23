@@ -35,6 +35,7 @@ async function Create(tx: ITxSell): Promise<ITxSell | null> {
     const create = {
         id: `${Guid.create().toString()}`,
         date: tx.date,
+        nota_id: tx.nota_id,
         final_price: tx.final_price,
         created_date: new Date(),
         items: {
