@@ -15,7 +15,7 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 COPY package* ./
 COPY ./prisma ./prisma
 COPY ./env/production.env ./env/production.env
-RUN npm install --production
+RUN npm install --omit=dev
 COPY --from=build ./app/dist ./dist
 EXPOSE 8081
 CMD [ "npm", "start" ]
