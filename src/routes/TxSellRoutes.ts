@@ -36,7 +36,7 @@ router.post(
                     props: {
                         name: { type: "string" },
                         product_id: { type: "string" },
-                        buying_price: { type: "number" },
+                        selling_price: { type: "number" },
                         quantity: { type: "number" },
                         total_price: { type: "number" },
                     },
@@ -59,7 +59,7 @@ router.post(
             });
         }
         const response = await TxSellService.Create(req.body);
-        res.status(HttpStatusCodes.CREATED).json(response);
+        res.status(response.statusCode).json(response);
     }
 );
 

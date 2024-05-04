@@ -32,6 +32,17 @@ async function GetById(id: string): Promise<ITxSell | null> {
 }
 
 async function Create(tx: ITxSell): Promise<ITxSell | null> {
+    for (const item of tx.items) {
+        const product = await prisma.product_Stock.findUnique({
+            where: {
+                id: item.product_id,
+            },
+        });
+        if (!product || product.quantity < item.quantity) {
+            return null;
+        }
+    }
+
     const create = {
         id: `${Guid.create().toString()}`,
         date: tx.date,

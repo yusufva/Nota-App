@@ -52,6 +52,15 @@ async function Create(tx: NewTxSellRequestDto): Promise<NewTxSellResponseDto> {
         items: newItem,
     };
     const create = await TxSellRepo.Create(newTxSell);
+    if (!create) {
+        const response: NewTxSellResponseDto = {
+            result: "Failed",
+            message: "Data Creation Failed",
+            statusCode: HttpStatusCodes.BAD_REQUEST,
+            data: null,
+        };
+        return response;
+    }
     const response: NewTxSellResponseDto = {
         result: "Success",
         message: "Data Created Successfully",
