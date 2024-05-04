@@ -35,6 +35,7 @@
         "dotenv-cli": "^7.3.0",
         "express": "^4.18.2",
         "express-async-errors": "^3.1.1",
+        "fastest-validator": "^1.18.0",
         "guid-typescript": "^1.0.9",
         "helmet": "^7.1.0",
         "inserturlparams": "^1.0.1",
