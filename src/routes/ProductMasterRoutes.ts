@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable max-len */
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 
@@ -46,7 +42,7 @@ router.post(
         const validate = v.compile(schema);
         const validation = validate(req.body) as ValidationError[] | true;
         if (validation !== true) {
-            const errors = validation.map((error: any) => ({
+            const errors = validation.map((error: ValidationError) => ({
                 message: error.message,
                 field: error.field,
             }));
@@ -84,7 +80,7 @@ router.put(
         const validate = v.compile(schema);
         const validation = validate(req.body) as ValidationError[] | true;
         if (validation !== true) {
-            const errors = validation.map((error: any) => ({
+            const errors = validation.map((error: ValidationError) => ({
                 message: error.message,
                 field: error.field,
             }));
