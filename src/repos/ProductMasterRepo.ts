@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable indent */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable max-len */
 import { IProductMaster } from "@src/models/Product_Master";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Guid } from "guid-typescript";
 
 const prisma = new PrismaClient();
@@ -55,11 +56,11 @@ async function Create(product: IProductMaster): Promise<IProductMaster | null> {
         });
         return create;
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-            if (error.code === "P2002") {
-                return null;
-            }
+        // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === "P2002") {
+            return null;
         }
+        // }
     }
 }
 
