@@ -24,6 +24,7 @@ async function UpdateById(product: IStock): Promise<IStock> {
         where: { id: product.id },
         data: {
             quantity: product.quantity,
+            satuan: product.satuan,
             updated_date: new Date(),
         },
         include: { product: true },

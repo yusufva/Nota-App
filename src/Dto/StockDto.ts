@@ -1,4 +1,4 @@
-import { IStock } from '@src/models/Stock';
+import { IStock } from "@src/models/Stock";
 
 export type StockDto = IStock;
 
@@ -7,15 +7,16 @@ export type StockResponseDto = {
     message: string;
     statusCode: number;
     data: StockDto[];
-}
+};
 
 export type NewStockResponseDto = {
     result: string;
     message: string;
     statusCode: number;
     data: StockDto | null;
-}
+};
 
 export type NewStockRequestDto = {
     quantity: number;
-}
+    satuan: string;
+};
