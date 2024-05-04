@@ -1,6 +1,6 @@
 {
     "name": "nota-app-basic",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scripts": {
         "build": "npx ts-node build.ts",
         "lint": "npx eslint --ext .ts src/",
