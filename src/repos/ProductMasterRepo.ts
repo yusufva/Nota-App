@@ -12,6 +12,9 @@ const prisma = new PrismaClient();
 async function GetAll(): Promise<IProductMaster[]> {
     const product: IProductMaster[] = await prisma.product_Master.findMany({
         include: { stock: true },
+        orderBy: {
+            name: "asc",
+        }
     });
     return product;
 }

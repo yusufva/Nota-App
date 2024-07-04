@@ -17,6 +17,9 @@ async function GetAll(): Promise<ITxSell[]> {
         include: {
             items: true,
         },
+        orderBy: {
+            date: "desc",
+        }
     });
     return tx;
 }
