@@ -16,6 +16,9 @@ type TransactionService = {
 async function GetAll(): Promise<ITxBuy[]> {
     const tx: ITxBuy[] = await prisma.tx_Buy.findMany({
         include: { items: true },
+        orderBy: {
+            date: "desc",
+        }
     });
     return tx;
 }

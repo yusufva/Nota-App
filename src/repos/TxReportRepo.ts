@@ -23,6 +23,9 @@ async function GetTxBuyByMonth(date: Date): Promise<ITxBuy[]> {
         include: {
             items: true,
         },
+        orderBy: {
+            date: "asc",
+        },
     });
     return tx;
 }
