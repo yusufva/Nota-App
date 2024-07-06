@@ -34,6 +34,8 @@ model Tx_Buy{
   date DateTime @unique
   nota_id String @unique
   items Bought_Items[]
+  supplier Supplier_Master @relation(fields: [supplier_id], references: [id])
+  supplier_id Int 
   final_price Int
   created_date DateTime @default(now())
 }
@@ -69,4 +71,12 @@ model Sold_Items{
   quantity Int
   total_price Int
   created_date DateTime @default(now())
+}
+
+model Supplier_Master{
+  id Int @id @default(autoincrement())
+  nama String
+  nota_id String 
+  nota Tx_Buy[] 
+  cp String
 }
