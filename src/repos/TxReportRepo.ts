@@ -23,6 +23,9 @@ async function GetTxBuyByMonth(date: Date): Promise<ITxBuy[]> {
         include: {
             items: true,
         },
+        orderBy: {
+            date: "desc",
+        },
     });
     return tx;
 }
@@ -44,6 +47,9 @@ async function GetTxBuyByDate(
         },
         include: {
             items: true,
+        },
+        orderBy: {
+            date: "desc",
         },
     });
     return tx;
@@ -68,6 +74,9 @@ async function GetTxSellByMonth(date: Date): Promise<ITxSell[]> {
         include: {
             items: true,
         },
+        orderBy: {
+            date: "desc",
+        },
     });
     return tx;
 }
@@ -89,6 +98,9 @@ async function GetTxSellByDate(
         },
         include: {
             items: true,
+        },
+        orderBy: {
+            date: "desc",
         },
     });
     return tx;

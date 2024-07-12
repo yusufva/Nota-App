@@ -7,6 +7,11 @@ const prisma = new PrismaClient();
 async function GetAll(): Promise<IStock[]> {
     const product: IStock[] = await prisma.product_Stock.findMany({
         include: { product: true },
+        orderBy: {
+            product: {
+                name: "asc",
+            },
+        }
     });
     return product;
 }
