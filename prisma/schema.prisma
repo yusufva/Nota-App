@@ -76,7 +76,9 @@ model Sold_Items{
 model Supplier_Master{
   id Int @id @default(autoincrement())
   nama String
-  nota_id String 
   nota Tx_Buy[] 
-  cp String
+  cp String?
+  alamat String?
+  created_date DateTime @default(now())
+  updated_date DateTime @default(now())
 }
